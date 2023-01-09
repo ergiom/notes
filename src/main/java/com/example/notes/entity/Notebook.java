@@ -3,6 +3,7 @@ package com.example.notes.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -19,8 +20,6 @@ public class Notebook {
     private Long id;
     private String name;
 
-    @OneToMany
-    @JoinColumn
     @ToString.Exclude
     @OneToMany(
             cascade = CascadeType.ALL
@@ -30,4 +29,12 @@ public class Notebook {
             referencedColumnName = "id"
     )
     private List<Note> notes;
+
+    public void addNote(Note note) {
+        if (notes == null) {
+            notes = new LinkedList<>();
+        }
+
+        notes.add(note);
+    }
 }
