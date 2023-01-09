@@ -30,7 +30,7 @@ public class NotebookController {
     }
 
     @DeleteMapping("/notebooks/{id}")
-    public void deleteNotebookById(@PathVariable("id") Long id) {
+    public void deleteNotebook(@PathVariable("id") Long id) {
         notebookService.deleteNotebookById(id);
     }
 }
