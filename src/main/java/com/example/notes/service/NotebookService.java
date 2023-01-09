@@ -13,4 +13,6 @@ public interface NotebookService {
     Notebook getNotebookById(Long id) throws NotebookNotFoundException;
 
     void deleteNotebookById(Long id);
+
+    void updateNotebookById(Long id, Notebook notebook) throws NotebookNotFoundException;
 }

@@ -33,4 +33,9 @@ public class NotebookController {
     public void deleteNotebook(@PathVariable("id") Long id) {
         notebookService.deleteNotebookById(id);
     }
+
+    @PutMapping("/notebooks/{id}")
+    public void updateNotebook(@PathVariable("id") Long id, @RequestBody Notebook notebook) throws NotebookNotFoundException {
+        notebookService.updateNotebookById(id, notebook);
+    }
 }

@@ -40,4 +40,21 @@ public class NotebookServiceImpl implements NotebookService {
     public void deleteNotebookById(Long id) {
         notebookRepository.deleteById(id);
     }
+
+    @Override
+    public void updateNotebookById(Long id, Notebook notebook) throws NotebookNotFoundException {
+        Optional<Notebook> notebookOptional = notebookRepository.findById(id);
+
+        if (notebookOptional.isEmpty()) {
+            throw new NotebookNotFoundException();
+        }
+
+        Notebook oldNotebook = notebookOptional.get();
+
+        if (notebook.getName() != null) {
+            oldNotebook.setName(notebook.getName());
+        }
+
+        notebookRepository.save(oldNotebook);
+    }
 }
