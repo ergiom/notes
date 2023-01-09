@@ -1,9 +1,31 @@
 package com.example.notes.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.example.notes.entity.Notebook;
+import com.example.notes.error.NotebookNotFoundException;
+import com.example.notes.service.NotebookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class NotebookController {
 
+    @Autowired
+    private NotebookService notebookService;
 
+    @GetMapping("/notebooks")
+    public List<Notebook> fetchNotebooks() {
+        return notebookService.getAllNotebooks();
+    }
+
+    @PostMapping("/notebooks/new")
+    public void saveNotebook(@RequestBody Notebook notebook){
+        notebookService.saveNotebook(notebook);
+    }
+
+    @GetMapping("/notebooks/{id}")
+    public Notebook fetchNotebookById(@PathVariable("id") Long id) throws NotebookNotFoundException {
+        return notebookService.getNotebookById(id);
+    }
 }
