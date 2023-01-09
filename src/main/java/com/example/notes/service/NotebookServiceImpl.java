@@ -1,5 +1,6 @@
 package com.example.notes.service;
 
+import com.example.notes.entity.Note;
 import com.example.notes.entity.Notebook;
 import com.example.notes.error.NotebookNotFoundException;
 import com.example.notes.repository.NotebookRepository;
@@ -56,5 +57,18 @@ public class NotebookServiceImpl implements NotebookService {
         }
 
         notebookRepository.save(oldNotebook);
+    }
+
+    @Override
+    public void saveNoteToNotebook(Long notebookId, Note note) throws NotebookNotFoundException {
+        Notebook notebook = getNotebookById(notebookId);
+        notebook.addNote(note);
+        notebookRepository.save(notebook);
+    }
+
+    @Override
+    public List<Note> fetchNotesFromNotebook(Long notebookId) throws NotebookNotFoundException {
+        Notebook notebook = getNotebookById(notebookId);
+        return notebook.getNotes();
     }
 }

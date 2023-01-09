@@ -1,5 +1,6 @@
 package com.example.notes.service;
 
+import com.example.notes.entity.Note;
 import com.example.notes.entity.Notebook;
 import com.example.notes.error.NotebookNotFoundException;
 
@@ -15,4 +16,8 @@ public interface NotebookService {
     void deleteNotebookById(Long id);
 
     void updateNotebookById(Long id, Notebook notebook) throws NotebookNotFoundException;
+
+    void saveNoteToNotebook(Long notebookId, Note note) throws NotebookNotFoundException;
+
+    List<Note> fetchNotesFromNotebook(Long notebookId) throws NotebookNotFoundException;
 }
