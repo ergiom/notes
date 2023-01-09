@@ -1,9 +1,9 @@
 package com.example.notes.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Setter
@@ -18,4 +18,9 @@ public class Notebook {
     @GeneratedValue
     private Long id;
     private String name;
+
+    @OneToMany
+    @JoinColumn
+    @ToString.Exclude
+    private List<Note> notes;
 }
