@@ -22,5 +22,12 @@ public class Notebook {
     @OneToMany
     @JoinColumn
     @ToString.Exclude
+    @OneToMany(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "notebook_id",
+            referencedColumnName = "id"
+    )
     private List<Note> notes;
 }
