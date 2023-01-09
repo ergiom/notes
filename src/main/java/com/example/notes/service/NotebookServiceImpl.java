@@ -35,4 +35,9 @@ public class NotebookServiceImpl implements NotebookService {
 
         return notebookOptional.get();
     }
+
+    @Override
+    public void deleteNotebookById(Long id) {
+        notebookRepository.deleteById(id);
+    }
 }

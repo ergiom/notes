@@ -28,4 +28,9 @@ public class NotebookController {
     public Notebook fetchNotebookById(@PathVariable("id") Long id) throws NotebookNotFoundException {
         return notebookService.getNotebookById(id);
     }
+
+    @DeleteMapping("/notebooks/{id}")
+    public void deleteNotebookById(@PathVariable("id") Long id) {
+        notebookService.deleteNotebookById(id);
+    }
 }
