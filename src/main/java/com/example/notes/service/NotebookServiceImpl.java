@@ -2,7 +2,9 @@ package com.example.notes.service;
 
 import com.example.notes.entity.Note;
 import com.example.notes.entity.Notebook;
+import com.example.notes.error.NoteNotFoundException;
 import com.example.notes.error.NotebookNotFoundException;
+import com.example.notes.repository.NoteRepository;
 import com.example.notes.repository.NotebookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Autowired
     private NotebookRepository notebookRepository;
+    @Autowired
+    private NoteRepository noteRepository;
 
     @Override
     public List<Notebook> getAllNotebooks() {
@@ -70,5 +74,21 @@ public class NotebookServiceImpl implements NotebookService {
     public List<Note> fetchNotesFromNotebook(Long notebookId) throws NotebookNotFoundException {
         Notebook notebook = getNotebookById(notebookId);
         return notebook.getNotes();
+    }
+
+    @Override
+    public Note getNoteFromNotebook(Long notebookId, Long noteId) throws NoteNotFoundException, NotebookNotFoundException {
+        Notebook notebook = getNotebookById(notebookId);
+        Optional<Note> optionalNote = noteRepository.findById(noteId);
+        if (optionalNote.isEmpty()) {
+            throw new NoteNotFoundException();
+        }
+        Note note = optionalNote.get();
+
+        if (!notebook.getNotes().contains(note)) {
+            throw new NoteNotFoundException();
+        }
+
+        return note;
     }
 }

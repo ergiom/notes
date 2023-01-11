@@ -1,6 +1,7 @@
 package com.example.notes.controller;
 
 import com.example.notes.entity.Note;
+import com.example.notes.error.NoteNotFoundException;
 import com.example.notes.error.NotebookNotFoundException;
 import com.example.notes.service.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,11 @@ public class NoteController {
     public void saveNoteToNotebook(@PathVariable("notebook_id") Long notebookId,
                                    @RequestBody Note note) throws NotebookNotFoundException {
         notebookService.saveNoteToNotebook(notebookId, note);
+    }
+
+    @GetMapping("/notebooks/{notebook_id}/notes/{note_id}")
+    public Note fetchNoteById(@PathVariable("notebook_id") Long notebookId,
+                              @PathVariable("note_id") Long noteId) throws NotebookNotFoundException, NoteNotFoundException {
+        return notebookService.getNoteFromNotebook(notebookId, noteId);
     }
 }
