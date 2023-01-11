@@ -11,6 +11,11 @@ public class NotebookResponseExceptionHandler {
 
     @ExceptionHandler(value = NotebookNotFoundException.class)
     public ErrorResponse handleNotebookNotFoundException(NotebookNotFoundException exception) {
-        return new ErrorResponseException(HttpStatus.NOT_FOUND);
+        throw new ErrorResponseException(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = NoteNotFoundException.class)
+    public ErrorResponse handleNoteNotFoundException(NoteNotFoundException exception) {
+        throw new ErrorResponseException(HttpStatus.NOT_FOUND);
     }
 }
